@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.UserMapper">
+	<resultMap type="User" id="userMap">
+		<id column="pk" property="pk" />
+		<result column="userid" property="userid" />
+		<result column="pwd" property="pwd" />
+	</resultMap>
+	<sql id="Base_Column_list">
+		pk,userid,pwd
+	</sql>
+
+	<insert id="save">
+		insert into user(userid,pwd) values
+		(#{userid},#{pwd})
+	</insert>
+
+	<delete id="delete">
+		delete from user where pk= #{pk}
+	</delete>
+
+	<update id="update">
+		update user set userid = #{userid},pwd = #{pwd} where
+		pk = #{pk}
+	</update>
+
+	<select id="findById" resultType="User">
+		select
+		<include refid="Base_Column_list" />
+		from user where pk =#{pk}
+	</select>
+
+	<select id="findAll" resultMap="userMap">
+		select
+		<include refid="Base_Column_list" />
+		from user
+	</select>
+
+	 <select id="findByNameAndPwd" resultType="User">
+		select
+		<include refid="Base_Column_list" />
+		from user
+		where userid = #{userid} and pwd = #{pwd}
+	</select> 
+	<!-- <select id="findByNameAndPwd" resultType="User">
+		select * from user where
+		id=#{id} and password=#{password}
+	</select> -->
+</mapper>  
+
+
+
+		

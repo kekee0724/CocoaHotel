@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.OrderMapper">
+	<resultMap type="Order" id="orderMap">
+		<id column="pk" property="pk" />
+		<result column="c_type_id" property="c_type_id" />
+		<result column="m_id" property="m_id" />
+		<result column="r_type_id" property="r_type_id" />
+		<result column="r_no" property="r_no" />
+		<result column="ord_time" property="ord_time" />
+	</resultMap>
+	<sql id="Base_Column_list">
+		pk,c_type_id, m_id, r_type_id, r_no, ord_time,
+		remark
+	</sql>
+
+	<insert id="save">
+		insert into orders(c_type_id, m_id, r_type_id, r_no,
+		ord_time, remark) values
+		(#{c_type_id},#{m_id},#{r_type_id},#{r_no},#{ord_time},#{remark})
+	</insert>
+
+	<delete id="delete">
+		delete from orders where pk= #{pk}
+	</delete>
+
+	<update id="update">
+		update orders set r_type_id = #{r_type_id},r_no =
+		#{r_no} where
+		pk = #{pk}
+	</update>
+
+	<select id="findByPk" resultType="Order">
+		select
+		<include refid="Base_Column_list" />
+		from orders where pk =#{pk}
+	</select>
+
+	<select id="findAll" resultMap="orderMap">
+		select
+		<include refid="Base_Column_list" />
+		from orders
+	</select>
+</mapper>  
+
+
+
+		

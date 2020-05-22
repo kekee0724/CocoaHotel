@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.CustomerMapper">
+	<resultMap type="Customer" id="customerMap">
+		<id column="pk" property="pk" />
+		<result column="userid" property="userid" />
+		<result column="pwd" property="pwd" />
+		<result column="c_type_id" property="c_type_id" />
+		<result column="m_id" property="m_id" />
+		<result column="m_name" property="m_name" />
+		<result column="sex" property="sex" />
+		<result column="zj_no" property="zj_no" />
+		<result column="m_tel" property="m_tel" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="Base_Column_list">
+		pk,userid,pwd,c_type_id, m_id, m_name, sex,
+		zj_no, m_tel,
+		remark
+	</sql>
+
+	<insert id="save">
+		insert into customer(userid,pwd,c_type_id, m_id,
+		m_name, sex,
+		zj_no, m_tel, remark) values
+		(#{userid},#{pwd},#{c_type_id},#{m_id},#{m_name},#{sex},#{zj_no},#{m_tel},#{remark})
+	</insert>
+
+	<delete id="delete">
+		delete from customer where pk= #{pk}
+	</delete>
+
+	<update id="update">
+		update customer set
+		userid=#{userid},pwd=#{pwd},c_type_id = #{c_type_id},m_id =
+		#{m_id}
+		,m_name = #{m_name},sex = #{sex},zj_no = #{zj_no},m_tel =
+		#{m_tel},remark = #{remark} where
+		pk = #{pk}
+	</update>
+
+	<select id="findByPk" resultType="Customer">
+		select
+		<include refid="Base_Column_list" />
+		from customer where pk =#{pk}
+	</select>
+
+	<select id="findAll" resultMap="customerMap">
+		select
+		<include refid="Base_Column_list" />
+		from customer
+	</select>
+	<select id="findByNameAndPwd" resultType="Customer">
+		select
+		<include refid="Base_Column_list" />
+		from customer
+		where userid = #{userid} and pwd = #{pwd}
+	</select>
+</mapper>  
+
+
+
+		
